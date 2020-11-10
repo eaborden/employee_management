@@ -1,0 +1,11 @@
+{
+    "name": "employee_cmsdb",
+    "version": "1.0.0",
+    "description": "install for project 2",
+    "main": "personnel.js",
+    "dependencies": {
+      "inquirer": "^6.2.1",
+      "mysql": "^2.16.0",
+      "console": "0.7.2"}
+}
+  
