@@ -30,3 +30,5 @@ CREATE TABLE employee(
 ALTER Table employee
 ADD FOREIGN KEY (manager_id) 
 REFERENCES employee(id);
+
+
