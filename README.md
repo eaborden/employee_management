@@ -11,7 +11,7 @@ Create a content management system for managing staff.  The system allow a user 
 [Requirements](#requirements) \
 [Environment Setup](#environment-setup) \
 [Project Images](#project-images) \
-[Project Video Demostration](#video-demostration)
+[Project Video Demonstration](#project-video-demonstration)
 
 ## Required Elements
 [Inquirer package](https://www.npmjs.com/package/inquirer) \
@@ -46,6 +46,6 @@ Image 2. Database schema
 ![schema](https://github.com/eaborden/employee_management/blob/master/Assets/images/schema.PNG?raw=true)
 
 
-## Project Video Demostration
+## Project Video Demonstration
 
 [Video demostration](https://drive.google.com/file/d/1tdkpuKcnnwPoNCT9de2mF-JVdi_o8BuU/view)
