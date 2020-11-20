@@ -11,7 +11,7 @@ Create a content management system for managing staff.  The system allow a user 
 [Requirements](#requirements) \
 [Environment Setup](#environment-setup) \
 [Project Images](#project-images) \
-[Project Video Demostration](project-video-demonstration)
+[Project Video Demostration](#video-demostration)
 
 ## Required Elements
 [Inquirer package](https://www.npmjs.com/package/inquirer) \
