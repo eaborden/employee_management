@@ -68,7 +68,6 @@ function start() {
             };
         })
 };
-
 function viewAll() {
     connection.query(("select emp.id, emp.first_name, emp.last_name, r.title, d.name as department, r.salary, concat(mngr.first_name,' ',mngr.last_name) as manager from employee emp left join employee mngr on emp.manager_id = mngr.id left join role r on emp.role_id = r.id left join department d on d.id = r.department_id;"),
         function (err, res) {
@@ -77,7 +76,6 @@ function viewAll() {
             start();
         });
 };
-
 function viewAllDepartments() {
     connection.query(("select * from department;"),
         function (err, res) {
@@ -86,7 +84,6 @@ function viewAllDepartments() {
             start();
         });
 };
-
 function viewAllRoles() {
     //console.log("am I working");
     connection.query(("select title from role;"),
@@ -105,7 +102,31 @@ function viewAllEmployees() {
             start();
         });
 };
-
+function viewAllDepartmentsDisplay() {
+    connection.query(("select * from department;"),
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            //start();
+        });
+};
+function viewAllManagersDisplay() {
+    connection.query(("select id, last_name from employee where manager_id IS NULL;"),
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            //start();
+        });
+};
+function viewAllRolesDisplay() {
+    //console.log("am I working");
+    connection.query(("select id, title from role;"),
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            //start();
+        });
+};
 function addEmployee() {
     inquirer
         .prompt([
@@ -123,12 +144,14 @@ function addEmployee() {
             {
                 name: "role",
                 type: "input",
-                message: "Employee Role?"
+                message: "Employee Role? (select the id number from the table below)",
+                choices: viewAllRolesDisplay
             },
             {
                 name: "manager",
                 type: "input",
-                message: "Employee's Manager?"
+                message: "Employee's Manager? (select the id number from the table below)",
+                choices:  viewAllManagersDisplay
             },
         ])
         .then(function (answer) {
@@ -143,8 +166,6 @@ function addEmployee() {
                 });
         })
 };
-
-
 function addDepartment() {
     inquirer.prompt([
         {
@@ -158,12 +179,10 @@ function addDepartment() {
             connection.query("INSERT INTO department (name) VALUES (?);", [
                 answer.name
             ],
-
                 function (err, res) {
                     if (err) throw err;
-                    console.table(res);
+                    //console.table(res);
                     start();
-
                 });
 
         })
@@ -185,7 +204,8 @@ function addRoles() {
         {
             name: "department_id",
             type: "input",
-            message: "Department ID?"
+            message: "Department ID? (select the id number from the table below)",
+            choices: viewAllDepartmentsDisplay
         },
 
     ])
@@ -197,7 +217,7 @@ function addRoles() {
 
                 function (err, res) {
                     if (err) throw err;
-                    console.table(res);
+                    //console.table(res);
                     start();
 
                 });
@@ -210,18 +230,29 @@ function addRoles() {
 //
 
 function updateEmployeeRole() {
+    connection.query("SELECT last_name FROM employee", function (err, results2) {
+        if (err) throw err;
  inquirer
         .prompt([
 
             {
                 name: "last_name",
-                type: "input",
+                type: "rawlist",
+                choices: function () {
+                    var choiceArray = [];
+                    for (var i = 0; i < results2.length; i++) {
+                        choiceArray.push(results2[i].last_name);
+                    }
+                    return choiceArray;
+                },
+
                 message: "Which employee do you want to update the role for?"
             },
             {
                 name: "role_id",
                 type: "input",
-                message: "What is the new role?"
+                message: "What is the new role? (select the id number from the table below)",
+                choices:  viewAllRolesDisplay
             },
 
 ])
@@ -240,10 +271,10 @@ function updateEmployeeRole() {
 
                 function (err, res) {
                     if (err) throw err;
-                    console.table(res);
+                    //console.table(res);
                     start();
                 });
 
             })
-    };
-    
+    })
+};
